@@ -3,6 +3,12 @@ language: java
 jdk:
   - openjdk14
 
+services:
+  - postgresql
+
+before_install:
+  - psql -c 'create database grabber;' -U postgres
+
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
 
@@ -11,13 +17,13 @@ sudo: false
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-# Отправлять уведомление на почтуyouremail@smtp.ru(Изменить на свою) если сборка упал
+# Отправлять уведомление на почту youremail@smtp.ru(Изменить на свою) если сборка упала
 notifications:
   email:
     recipients:
-      kiril5471710@gmail.com
+      - kiril5471710@gmail.com
     on_success: never # default: change
-    on_failure: always # default: al,ways
+    on_failure: always # default: always
 
 env:
   global:
