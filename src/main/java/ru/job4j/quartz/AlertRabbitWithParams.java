@@ -14,7 +14,6 @@ import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
-
 public class AlertRabbitWithParams {
     public static void main(String[] args) throws Exception {
         Properties config = new Properties();
@@ -27,7 +26,7 @@ public class AlertRabbitWithParams {
                 config.getProperty("jdbc.url"),
                 config.getProperty("jdbc.username"),
                 config.getProperty("jdbc.password")
-        )){
+        )) {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDataMap data = new JobDataMap();
@@ -63,9 +62,9 @@ public class AlertRabbitWithParams {
                     getJobDataMap()
                     .get("connection");
             try (Statement statement = connection.createStatement()) {
-                statement.execute("" +
-                        "insert into rabbit (CREATED_DATE) values (CURRENT_TIMESTAMP )");
-            }catch (SQLException e){
+                statement.execute(""
+                        + "insert into rabbit (CREATED_DATE) values (CURRENT_TIMESTAMP )");
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
