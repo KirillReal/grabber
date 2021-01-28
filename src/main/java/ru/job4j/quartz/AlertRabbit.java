@@ -14,7 +14,7 @@ import static org.quartz.SimpleScheduleBuilder.*;
 public class AlertRabbit {
     public static void main(String[] args) throws IOException {
         Properties config = new Properties();
-        try (FileReader rabbit = new FileReader("./src/main/resources/rabbit.properties")){
+        try (FileReader rabbit = new FileReader("./src/main/resources/rabbit.properties")) {
             config.load(rabbit);
         }
         try {
