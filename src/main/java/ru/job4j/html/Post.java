@@ -8,7 +8,6 @@ public class Post {
     private String link;
     private Date date;
 
-
     public Post(String description, String author, String link, Date date) {
         this.description = description;
         this.author = author;
@@ -47,7 +46,6 @@ public class Post {
     public void setDate(Date date) {
         this.date = date;
     }
-
 
     @Override
     public String toString() {
