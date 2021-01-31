@@ -4,13 +4,31 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import ru.job4j.grabber.Parse;
+import ru.job4j.grabber.ParseDate;
+import ru.job4j.grabber.Post;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class SqlRuParse {
+public class SqlRuParse implements Parse {
 
+    @Override
+    public List<Post> list(String link) {
+        List<Post> posts = new ArrayList<>();
+        Document doc = getDocument(link);
+        Elements row = doc.select(".postslisttopic");
+        for (Element td : row) {
+            Element href = td.child(0);
+            posts.add(detail(href.attr("href")));
+        }
+        return posts;
+    }
+
+    @Override
     public Post detail(String link) {
         Document doc = getDocument(link);
         Element jData = doc.select(".msgTable").first();
