@@ -35,7 +35,6 @@ public class SqlRuParse implements Parse {
         Element jDescription = jData.select(".msgBody").last();
         Element jAuthor = jData.select(".msgBody").first();
         Elements jDate = jData.select(".msgFooter");
-        Elements jNameVac = jData.select(".messageHeader");
         Date date = ParseDate.getDateFromRusFormat(Arrays.stream(jDate.text().split(" "))
                 .limit(4).collect(Collectors.joining(" ")), "d MMM yy HH:mm");
         String description = jDescription.text();
