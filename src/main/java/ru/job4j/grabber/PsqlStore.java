@@ -30,18 +30,16 @@ public class PsqlStore implements Store, AutoCloseable {
     }
 
     @Override
-    public boolean save(Post post) {
-        boolean result = false;
-        try (PreparedStatement statement = cn.prepareStatement("insert into post(name,text,link,created) values(?,?,?,?)")) {
+    public void save(Post post) {
+        try (PreparedStatement statement = cn.prepareStatement("insert into post(nameVac,description,link,created) values(?,?,?,?)")) {
             statement.setString(1, post.getNameVac());
             statement.setString(2, post.getDescription());
             statement.setString(3, post.getLink());
             statement.setTimestamp(4, new Timestamp(post.getDate().getTime()));
-            result = statement.executeUpdate() > 0;
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
     }
 
     @Override
@@ -50,12 +48,12 @@ public class PsqlStore implements Store, AutoCloseable {
         try (Statement statement = cn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM post")) {
             while (resultSet.next()) {
-                String name = resultSet.getString(2);
+                String nameVac = resultSet.getString(2);
                 String descr = resultSet.getString(3);
                 String link = resultSet.getString(4);
                 Timestamp timestamp = resultSet.getTimestamp(5);
                 Date date = new Date(timestamp.getTime());
-                result.add(new Post(name, descr, link, date));
+                result.add(new Post(nameVac, descr, link, date));
             }
         } catch (SQLException e) {
             e.printStackTrace();
