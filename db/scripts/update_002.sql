@@ -1,7 +1,7 @@
 create table post (
     id serial primary key,
-    link varchar(200) not null unique,
-    title varchar(200) not null,
-    date  timestamp,
+    link text unique,
+    nameVac text,
+    created date,
     description text not null
 )
