@@ -3,21 +3,29 @@ package ru.job4j.grabber;
 import java.util.Date;
 
 public class Post {
+    private int id;
     private String description;
     private String link;
     private Date date;
     private String nameVac;
 
-    public Post(String nameVac, String description, String link, Date date) {
+    public Post (String nameVac, String description, String link, Date date) {
+        this.description = description;
+        this.link = link;
+        this.date = date;
+        this.nameVac = nameVac;
+    }
+    public Post(int id,String nameVac, String description, String link, Date date) {
+        this.id = id;
         this.description = description;
         this.link = link;
         this.date = date;
         this.nameVac = nameVac;
     }
 
-    public Post() {
-    }
-
+   public int getId() {
+        return id;
+   }
     public String getDescription() {
         return description;
     }

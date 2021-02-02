@@ -48,12 +48,13 @@ public class PsqlStore implements Store, AutoCloseable {
         try (Statement statement = cn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM post")) {
             while (resultSet.next()) {
-                String nameVac = resultSet.getString(2);
-                String descr = resultSet.getString(3);
-                String link = resultSet.getString(4);
-                Timestamp timestamp = resultSet.getTimestamp(5);
+                int id = resultSet.getInt("id");
+                String nameVac = resultSet.getString("nameVac");
+                String descr = resultSet.getString("description");
+                String link = resultSet.getString("link");
+                Timestamp timestamp = resultSet.getTimestamp("created");
                 Date date = new Date(timestamp.getTime());
-                result.add(new Post(nameVac, descr, link, date));
+                result.add(new Post(id, nameVac, descr, link, date));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,14 +69,14 @@ public class PsqlStore implements Store, AutoCloseable {
             statement.setInt(1, Integer.parseInt(id));
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                item = new Post(resultSet.getString(2),
+                item = new Post(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
                         resultSet.getString(3),
                         resultSet.getString(4),
                         resultSet.getDate(5));
             }
-            if (item == null) {
-                throw new NoSuchElementException("Post with given ID not found");
-            }
+
         } catch (NoSuchElementException | SQLException e) {
             e.printStackTrace();
         }
@@ -92,11 +93,11 @@ public class PsqlStore implements Store, AutoCloseable {
         }
         PsqlStore psqlStore = new PsqlStore(cfg);
         Post postOne = new Post("java",
-                "требуются разработчики", "hh.ru#1", new java.util.Date());
+                "требуются разработчики", "hh.ru#4", new java.util.Date());
         Post postSecond = new Post("java",
-                "требуются тестеры", "hh.ru#2", new java.util.Date());
+                "требуются тестеры", "hh.ru#5", new java.util.Date());
         Post postThird = new Post("C",
-                "требуются embedded", "hh.ru#3", new java.util.Date());
+                "требуются embedded", "hh.ru#6", new java.util.Date());
         psqlStore.save(postOne);
         psqlStore.save(postSecond);
         psqlStore.save(postThird);
