@@ -74,5 +74,5 @@ insert into meetings(name) values('meeting');
 
 select m.name,count(r.user_id) from meetings m left join request r on m.id = r.meeting_id
 group by m.id
-having count(r.user_id) = 0
+having count(r.user_id) IS NULL
 order by m.id;
