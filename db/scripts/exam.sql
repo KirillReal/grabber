@@ -35,8 +35,8 @@ select p.name,c.name from person as p left join company c on p.company_id = c.id
 where p.company_id != 5 or p.company_id is null;
 
 select   total.name, total.countPerson  from (
-                                                 select company.name, count(person.id) as countPerson  from person
-                                                                                                                join company on person.company_id = company.id
-                                                 group by company.name) AS total where total.countPerson = (SELECT MAX(total.countPerson) from (
-                                                                                                                                                   select company.name, count(person.id) as countPerson  from person
-                                                                                                                                                                                                                  join company on person.company_id = company.id group by company.name) AS total);
+    select company.name, count(person.id) as countPerson  from person
+    join company on person.company_id = company.id
+    group by company.name) AS total where total.countPerson = (SELECT MAX(total.countPerson) from (
+    select company.name, count(person.id) as countPerson  from person
+    join company on person.company_id = company.id group by company.name) AS total);
