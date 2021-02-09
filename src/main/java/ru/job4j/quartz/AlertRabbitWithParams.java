@@ -4,6 +4,7 @@ import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
 import java.io.FileReader;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ import static org.quartz.TriggerBuilder.newTrigger;
 public class AlertRabbitWithParams {
     public static void main(String[] args) throws Exception {
         Properties config = new Properties();
-        try (FileReader rabbit = new FileReader("./src/main/resources/rabbit.properties")) {
+        try (InputStream rabbit = AlertRabbitWithParams.class.getClassLoader().getResourceAsStream("rabbit.properties")) {
             config.load(rabbit);
         }
         int interval = Integer.parseInt(config.getProperty("rabbit.interval"));

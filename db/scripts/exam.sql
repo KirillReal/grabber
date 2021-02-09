@@ -34,9 +34,8 @@ insert into person values (11, 'Ronnie', 5);
 select p.name,c.name from person as p left join company c on p.company_id = c.id
 where p.company_id != 5 or p.company_id is null;
 
-select   total.name, total.countPerson  from (
-    select company.name, count(person.id) as countPerson  from person
-    join company on person.company_id = company.id
-    group by company.name) AS total where total.countPerson = (SELECT MAX(total.countPerson) from (
-    select company.name, count(person.id) as countPerson  from person
-    join company on person.company_id = company.id group by company.name) AS total);
+select c.name as company,count(p.id) as persons_on_company
+from company c left join person p on c.id = p.company_id
+group by c.name
+order by count(p.id) desc
+limit 1;

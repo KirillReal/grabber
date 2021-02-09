@@ -5,6 +5,7 @@ import org.quartz.impl.StdSchedulerFactory;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import static org.quartz.JobBuilder.*;
@@ -14,7 +15,7 @@ import static org.quartz.SimpleScheduleBuilder.*;
 public class AlertRabbit {
     public static void main(String[] args) throws IOException {
         Properties config = new Properties();
-        try (FileReader rabbit = new FileReader("./src/main/resources/rabbit.properties")) {
+        try (InputStream rabbit = AlertRabbit.class.getClassLoader().getResourceAsStream("rabbit.properties")) {
             config.load(rabbit);
         }
         try {
