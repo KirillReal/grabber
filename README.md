@@ -1,4 +1,4 @@
-# job4j_grabber
+# grabber
 Агрегатор Java вакансий\
 [![Build Status](https://www.travis-ci.com/KirillReal/job4j_grabber.svg?branch=main)](https://travis-ci.org/KirillReal/job4j_grubber)
 [![codecov](https://codecov.io/gh/KirillReal/job4j_grabber/branch/main/graph/badge.svg?token=HV3GKKWA2H)](https://codecov.io/gh/KirillReal/job4j_grabber)
